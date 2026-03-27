@@ -51,7 +51,6 @@
 
 Всего несколько команд для начала работы:
 
-```powershell
 # 1️⃣ Поиск в одном файле
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Security.evtx" -SearchText "192.168.1.100"
 
