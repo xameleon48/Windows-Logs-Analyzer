@@ -1,0 +1,49 @@
+# Logs
+*.log
+*.evtx
+*.csv
+*.html
+*.ps1.bak
+*.ps1.old
+*.bak
+*.old
+
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.tmp
+*.temp
+
+# PowerShell
+*.psd1
+*.psm1
+*.ps1xml
+*.pssproj
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+.vs/
+
+# Test files
+test_*.ps1
+debug_*.ps1
+temp_*.ps1
+
+# User data
+results/
+output/
+*.zip
+*.7z
+*.rar
+
+# IDE
+.idea/
+*.sln
+*.csproj
+*.user
+
+# Personal
+personal_*.ps1
+*.secret
