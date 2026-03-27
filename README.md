@@ -67,9 +67,10 @@
 # 5️⃣ Справка
 .\Analyze-Logs.ps1 -Help
 
+---
+
 ## 📥 Установка
 
-```powershell
 # Способ 1: Клонировать репозиторий (рекомендуется)
 git clone https://github.com/xameleon48/Windows-Logs-Analyzer.git
 cd Windows-Logs-Analyzer
@@ -86,9 +87,11 @@ analyze-logs -LogPath "C:\Logs" -SearchText "error"
 # - PowerShell 5.1 или выше
 # - Права на чтение файлов .evtx
 
+---
+
 ## 📖 Полная документация
 
-```powershell
+
 # 📌 Основные параметры
 # -LogPath <путь>          # Путь к файлу .evtx или папке с логами (обязательный)
 # -Help                    # Показать справку
@@ -126,9 +129,10 @@ analyze-logs -LogPath "C:\Logs" -SearchText "error"
 # -DryRun                  # Показать что будет удалено без реального удаления
 # -MinFileSizeKB <KB>      # Минимальный размер файла (по умолч. 10 KB)
 
+---
+
 ## 💡 Примеры использования
 
-```powershell
 # 1️⃣ Базовый поиск
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Application.evtx" -SearchText "Ошибка"
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -ExportCSV
@@ -173,9 +177,10 @@ $date = (Get-Date).AddDays(-1).ToString("yyyy-MM-dd")
 $lastHour = (Get-Date).AddHours(-1)
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Security.evtx" -EventID "4625" -StartTime $lastHour -ExportCSV -ShowSummary
 
+---
+
 ## 🔧 Устранение проблем
 
-```powershell
 # ❌ Зависает на больших файлах
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -TimeoutSeconds 15
 
@@ -195,9 +200,11 @@ $lastHour = (Get-Date).AddHours(-1)
 # ❌ Ошибка памяти
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -MaxThreads 4 -MaxEvents 10000
 
+---
+
 ## 📄 Форматы вывода
 
-```powershell
+
 # CSV файл
 # - Разделитель: точка с запятой (;)
 # - Кодировка: UTF-8 с BOM
