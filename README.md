@@ -10,27 +10,6 @@
 
 ---
 
-## 📋 Содержание
-
-- [✨ Возможности](#-возможности)
-- [🚀 Быстрый старт](#-быстрый-старт)
-- [📖 Полная документация](#-полная-документация)
-  - [Основные параметры](#-основные-параметры)
-  - [Поиск по содержимому](#-поиск-по-содержимому)
-  - [Временные фильтры](#-временные-фильтры)
-  - [Производительность](#-производительность)
-  - [Управление выводом](#-управление-выводом)
-  - [Очистка пустых файлов](#-очистка-пустых-файлов)
-- [💡 Примеры использования](#-примеры-использования)
-- [⚡ Советы по производительности](#-советы-по-производительности)
-- [🔧 Устранение проблем](#-устранение-проблем)
-- [📥 Установка](#-установка)
-- [📄 Форматы вывода](#-форматы-вывода)
-- [🤝 Вклад в проект](#-вклад-в-проект)
-- [📝 Лицензия](#-лицензия)
-
----
-
 ## ✨ Возможности
 
 | Функция | Описание |
@@ -51,125 +30,124 @@
 
 Всего несколько команд для начала работы:
 
-# 1️⃣ Поиск в одном файле
+#### 1️⃣ Поиск в одном файле
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Security.evtx" -SearchText "192.168.1.100"
 
-# 2️⃣ Поиск в папке с экспортом
+#### 2️⃣ Поиск в папке с экспортом
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -ExportCSV
 
-# 3️⃣ Поиск за последние 24 часа с параллельной обработкой
+#### 3️⃣ Поиск за последние 24 часа с параллельной обработкой
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "powershell.exe" -LastHours 24 -UseParallel -MaxThreads 8
 
-# 4️⃣ Очистка пустых файлов (просмотр)
+#### 4️⃣ Очистка пустых файлов (просмотр)
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -CleanEmptyLogs -DryRun
 
-# 5️⃣ Справка
+#### 5️⃣ Справка
 .\Analyze-Logs.ps1 -Help
 
 ---
 
 ## 📥 Установка
 
-# Способ 1: Клонировать репозиторий (рекомендуется)
+#### Способ 1: Клонировать репозиторий (рекомендуется)
 git clone https://github.com/xameleon48/Windows-Logs-Analyzer.git
 cd Windows-Logs-Analyzer
 .\install.ps1
 
-# Способ 2: Скачать напрямую
+#### Способ 2: Скачать напрямую
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/xameleon48/Windows-Logs-Analyzer/main/Analyze-Logs.ps1" -OutFile "Analyze-Logs.ps1"
 
-# Способ 3: Сделать алиас (после установки)
+#### Способ 3: Сделать алиас (после установки)
 analyze-logs -LogPath "C:\Logs" -SearchText "error"
 
-# Требования:
-# - Windows 7/8/10/11 или Windows Server 2012+
-# - PowerShell 5.1 или выше
-# - Права на чтение файлов .evtx
+#### Требования:
+- Windows 7/8/10/11 или Windows Server 2012+
+- PowerShell 5.1 или выше
+- Права на чтение файлов .evtx
 
 ---
 
 ## 📖 Полная документация
 
+### 📌 Основные параметры
+- LogPath <путь>          Путь к файлу .evtx или папке с логами (обязательный)
+- Help                    Показать справку
 
-# 📌 Основные параметры
-# -LogPath <путь>          # Путь к файлу .evtx или папке с логами (обязательный)
-# -Help                    # Показать справку
+### 🔍 Поиск по содержимому
+- SearchText <текст>      Поиск по тексту в сообщении
+- SearchIP <IP>           Поиск по IP-адресу
+- SearchProcess <процесс> Поиск по имени процесса (например, powershell.exe)
+- EventID <ID>            Поиск по EventID (можно несколько: 4624,4625)
+- Level <уровень>         Уровень: Error, Warning, Information, Critical, Verbose
+- LogName <имя>           Имя файла журнала (можно несколько: Security,Application)
 
-# 🔍 Поиск по содержимому
-# -SearchText <текст>      # Поиск по тексту в сообщении
-# -SearchIP <IP>           # Поиск по IP-адресу
-# -SearchProcess <процесс> # Поиск по имени процесса (например, powershell.exe)
-# -EventID <ID>            # Поиск по EventID (можно несколько: 4624,4625)
-# -Level <уровень>         # Уровень: Error, Warning, Information, Critical, Verbose
-# -LogName <имя>           # Имя файла журнала (можно несколько: Security,Application)
+### ⏰ Временные фильтры
+- StartTime <дата/время>  Начало периода (формат: "2024-03-19 17:00:00")
+- EndTime <дата/время>    Конец периода
+- LastHours <часы>        За последние N часов
+- LastDays <дни>          За последние N дней
+- Today                   Только за сегодня
+- Yesterday               Только за вчера
+- ThisHour                Только за текущий час
 
-# ⏰ Временные фильтры
-# -StartTime <дата/время>  # Начало периода (формат: "2024-03-19 17:00:00")
-# -EndTime <дата/время>    # Конец периода
-# -LastHours <часы>        # За последние N часов
-# -LastDays <дни>          # За последние N дней
-# -Today                   # Только за сегодня
-# -Yesterday               # Только за вчера
-# -ThisHour                # Только за текущий час
+### ⚡ Производительность
+- UseParallel             Включить параллельную обработку
+- MaxThreads <число>      Количество потоков (по умолч. 4)
+- TimeoutSeconds <сек>    Таймаут на файл (по умолч. 30)
 
-# ⚡ Производительность
-# -UseParallel             # Включить параллельную обработку
-# -MaxThreads <число>      # Количество потоков (по умолч. 4)
-# -TimeoutSeconds <сек>    # Таймаут на файл (по умолч. 30)
+### 📄 Управление выводом
+- ExportCSV               Экспорт в CSV и HTML
+- ExportPath <путь>       Путь для экспорта (по умолч. папка с логами)
+- ShowSummary             Показать только сводку без деталей
+- MaxEvents <число>       Максимум событий для обработки (по умолч. 100000)
 
-# 📄 Управление выводом
-# -ExportCSV               # Экспорт в CSV и HTML
-# -ExportPath <путь>       # Путь для экспорта (по умолч. папка с логами)
-# -ShowSummary             # Показать только сводку без деталей
-# -MaxEvents <число>       # Максимум событий для обработки (по умолч. 100000)
-
-# 🗑️ Очистка пустых файлов
-# -CleanEmptyLogs          # Очистить пустые файлы логов
-# -DryRun                  # Показать что будет удалено без реального удаления
-# -MinFileSizeKB <KB>      # Минимальный размер файла (по умолч. 10 KB)
+### 🗑️ Очистка пустых файлов
+- CleanEmptyLogs          Очистить пустые файлы логов
+- DryRun                  Показать что будет удалено без реального удаления
+- MinFileSizeKB <KB>      Минимальный размер файла (по умолч. 10 KB)
 
 ---
 
 ## 💡 Примеры использования
 
-# 1️⃣ Базовый поиск
+#### 1️⃣ Базовый поиск
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Application.evtx" -SearchText "Ошибка"
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -ExportCSV
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Security.evtx" -SearchIP "192.168.1.100"
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchProcess "powershell.exe"
 
-# 2️⃣ Временные фильтры
+#### 2️⃣ Временные фильтры
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "powershell.exe" -LastHours 24
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchIP "192.168.1.100" -LastDays 7
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -EventID "4624,4625" -StartTime "2024-03-19" -EndTime "2024-03-20"
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -Level Error -Today
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -Level Warning -Yesterday
 
-# 3️⃣ Параллельная обработка
+#### 3️⃣ Параллельная обработка
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "seadm" -UseParallel -MaxThreads 8 -ExportCSV
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -UseParallel -MaxThreads 6 -TimeoutSeconds 60
 
-# 4️⃣ Комбинированные фильтры
+#### 4️⃣ Комбинированные фильтры
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchProcess "powershell.exe" -LastDays 7 -ExportCSV
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -Level Error -LastHours 24 -LogName "Application,System"
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchIP "192.168.1.100" -EventID "4625" -LastDays 30
 
-# 5️⃣ Очистка пустых файлов
+#### 5️⃣ Очистка пустых файлов
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -CleanEmptyLogs -DryRun
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -CleanEmptyLogs -MinFileSizeKB 5
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -CleanEmptyLogs
 
-# 6️⃣ Анализ безопасности
+#### 6️⃣ Анализ безопасности
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Security.evtx" -EventID "4625" -LastDays 7 -ExportCSV
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Security.evtx" -SearchText "seadm" -EventID "4624" -LastDays 30
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Security.evtx" -EventID "4688" -SearchProcess "powershell.exe" -LastDays 7
 
-# 7️⃣ Расследование инцидента
+#### 7️⃣ Расследование инцидента
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "seadm" -LastDays 30 -ExportCSV
 .\Analyze-Logs.ps1 -LogPath "C:\Logs\Security.evtx" -EventID "4625" -LastDays 7 -ExportCSV
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchProcess "powershell.exe" -LastDays 7 -ExportCSV
 
-# 8️⃣ Автоматизация
+#### 8️⃣ Автоматизация
 $date = (Get-Date).AddDays(-1).ToString("yyyy-MM-dd")
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -Level Error -StartTime $date -ExportCSV -ExportPath "C:\Reports"
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -Level "Error,Warning" -LastDays 7 -ExportCSV -ShowSummary
@@ -180,23 +158,25 @@ $lastHour = (Get-Date).AddHours(-1)
 
 ## 🔧 Устранение проблем
 
-# ❌ Зависает на больших файлах
+#### ❌ Зависает на больших файлах
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -TimeoutSeconds 15
 
-# ❌ Не находит события с временными фильтрами
-# Вместо StartTime/EndTime используйте LastDays
+#### ❌ Не находит события с временными фильтрами
+Вместо StartTime/EndTime используйте LastDays 
+
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -LastDays 30
 
-# ❌ Ошибка "Access Denied"
-# Запустите PowerShell от имени администратора
+#### ❌ Ошибка "Access Denied"
+Запустите PowerShell от имени администратора
 
-# ❌ Кириллица в CSV отображается кракозябрами
-# Используйте HTML версию или откройте CSV в Excel с выбором UTF-8
+#### ❌ Кириллица в CSV отображается кракозябрами
 
-# ❌ Слишком медленная обработка
+Используйте HTML версию или откройте CSV в Excel с выбором UTF-8
+
+#### ❌ Слишком медленная обработка
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -UseParallel -MaxThreads 8 -LastDays 7
 
-# ❌ Ошибка памяти
+#### ❌ Ошибка памяти
 .\Analyze-Logs.ps1 -LogPath "C:\Logs" -SearchText "error" -MaxThreads 4 -MaxEvents 10000
 
 ---
@@ -204,14 +184,14 @@ $lastHour = (Get-Date).AddHours(-1)
 ## 📄 Форматы вывода
 
 
-# CSV файл
-# - Разделитель: точка с запятой (;)
-# - Кодировка: UTF-8 с BOM
-# - Поля: Время, Журнал, EventID, Уровень, Провайдер, Сообщение
+#### CSV файл
+- Разделитель: точка с запятой (;)
+- Кодировка: UTF-8 с BOM
+- Поля: Время, Журнал, EventID, Уровень, Провайдер, Сообщение
 
-# HTML файл
-# - Удобная таблица с сортировкой
-# - Подсветка найденного текста
-# - Адаптивный дизайн
-# - Поддержка кириллицы
-# - Всплывающие подсказки для длинных имен
+#### HTML файл
+- Удобная таблица с сортировкой
+- Подсветка найденного текста
+- Адаптивный дизайн
+- Поддержка кириллицы
+- Всплывающие подсказки для длинных имен
